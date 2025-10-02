@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -92,5 +93,77 @@ namespace LibraryActivity
             }
         }
 
+    }
+
+    class Translation : Book 
+    {
+        public string language;
+        public Translation(string Language)
+        {
+            language = Language;
+        }      
+    }
+
+    class Accessibility : Book
+    {
+        public bool isBraille;
+        public double fontSize;
+        public string fontType;
+
+        public bool isBigFont;
+        public bool isDyslexiaFriendly;
+
+
+        public Accessibility(bool braille, double FontSize, string FontType)
+        {
+            isBraille = braille;
+            fontSize = FontSize;
+            fontType = FontType;
+        }
+        public void checkForAccessibility(Accessibility book)
+        {
+            if (book.fontSize > 18)
+            {
+                isBigFont = true;
+            }
+            else
+            {
+                isBigFont = false;
+            }
+
+            if (book.fontType == "Comic Sans" ||  book.fontType == "Calibri" || book.fontType == "Verdana")
+            {
+                isDyslexiaFriendly = true;
+            }
+            else
+            {
+                isDyslexiaFriendly = false;
+            }
+
+
+        }
+        public void printAccess(Accessibility book)
+        {
+            Console.WriteLine($"Braille: {book.isBraille}  Big Font: {book.isBigFont}  Dyslexia Friendly: {book.isDyslexiaFriendly}");
+        }
+
+    }
+
+    class Fees : Book
+    {
+        public double feePrice;
+        public int daysLate;
+        public double amount;
+
+        public Fees(int days)
+        {
+            feePrice = 2.99;
+            daysLate = days;
+        }
+
+        public void calculateFee(Fees book)
+        {
+            amount = feePrice * daysLate;
+        }
     }
 }
